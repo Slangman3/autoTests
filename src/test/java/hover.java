@@ -24,24 +24,20 @@ public class hover {
         driver.manage().window().fullscreen();
         List<WebElement> arr = driver.findElements(By.xpath("//div[@class='figure']"));
 
-//        for (int i = 0; i < arr.size(); i++) {
-//            WebElement firstFigure = arr.get(i);
-            WebElement firstFigure = arr.get(0);
+        for (int i = 1; i < 3; i++) {
+            WebElement firstFigure = arr.get(i);
             action.moveToElement(firstFigure).perform();
             WebElement figureLink = firstFigure.findElement(By.tagName("a"));
             WebElement nameOfFigure = firstFigure.findElement(By.tagName("h5"));
-            System.out.println(figureLink.getText());
             assertEquals(figureLink.getText(), "View profile");
-            System.out.println(nameOfFigure.getText());
-//            не получается сделать в цикле "name: user" + ++i
-            assertEquals(nameOfFigure.getText(), "name: user1");
+            assertEquals(nameOfFigure.getText(), "name: user" + ++i);
             figureLink.click();
             WebElement nextPage = driver.findElementByTagName("h1");
             assertEquals(nextPage.getText(), "Not Found");
             driver.navigate().back();
 //            не получается сделать проверку, что все на месте.
 //            firstFigure.isDisplayed();
-            driver.quit();
-//        }
+        }
+        driver.quit();
     }
 }
